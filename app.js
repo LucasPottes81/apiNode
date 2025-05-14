@@ -5,33 +5,34 @@ const tasksRouter = require('./routes/tasks');
 const authRoutes = require('./routes/auth');
 const app = express();
 const port = 3000;
-require('dotenv').config(); // Carrega variáveis de ambiente do .env
+require('dotenv').config();
 
 app.use(express.json());
-app.use('/tasks', tasksRouter);
-app.use('/', authRoutes);
+
+// Rota de status (teste rápido)
 app.get('/', (req, res) => {
   res.send('API de Tarefas: Funcionando!');
 });
 
+// Rotas
+app.use('/tasks', tasksRouter);
+app.use('/', authRoutes);
+
 (async () => {
   try {
-    // Conecta ao MySQL sem banco específico
+    // Conexão temporária para criar o banco, se necessário
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD 
+      password: process.env.DB_PASSWORD
     });
 
-    // Cria o banco de dados se não existir
     await connection.query('CREATE DATABASE IF NOT EXISTS task_manager');
     console.log('Banco de dados verificado/criado com sucesso.');
-
-    // Fecha essa conexão inicial
     await connection.end();
 
-    // Agora sincroniza as tabelas com Sequelize (já apontando pro banco)
-    await sequelize.sync({ force: true })
+    // Sincroniza modelos (sem forçar exclusão)
+    await sequelize.sync();
     console.log('Tabelas sincronizadas com sucesso.');
 
     // Inicia o servidor
