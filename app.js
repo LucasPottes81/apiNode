@@ -2,14 +2,14 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const sequelize = require('./config/db');
 const tasksRouter = require('./routes/tasks');
-require('dotenv').config(); // Carrega variáveis de ambiente do .env
-
+const authRoutes = require('./routes/auth');
 const app = express();
 const port = 3000;
+require('dotenv').config(); // Carrega variáveis de ambiente do .env
 
 app.use(express.json());
 app.use('/tasks', tasksRouter);
-
+app.use('/', authRoutes);
 app.get('/', (req, res) => {
   res.send('API de Tarefas: Funcionando!');
 });
