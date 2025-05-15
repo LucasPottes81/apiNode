@@ -5,8 +5,10 @@ const tasksRouter = require('./routes/tasks');
 const authRoutes = require('./routes/auth');
 const app = express();
 const port = 3000;
+const cors = require('cors');
 require('dotenv').config();
 
+app.use(cors());
 app.use(express.json());
 
 // Rota de status (teste rápido)
