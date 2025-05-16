@@ -1,72 +1,68 @@
 const Task = require('../models/taskModel');
 
+// GET - listar tarefas do usuário autenticado
+async function getAllTasks(req, res) {
+  const userId = req.user.id;
 
-// Função para criar uma nova tarefa
-exports.createTask = async (req, res) => {
-    const { title, description } = req.body;
-    try{
-        const newTask = await Task.create({ title, description });
-        res.status(201).json({
-            status: 'success',
-            data: {
-                task: newTask,
-            },
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: 'fail',
-            message: error.message,
-        });
-    }
+  try {
+    const tasks = await Task.findAll({ where: { userId } });
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar tarefas' });
+  }
 }
 
-// Função para listar todas as tarefas
-exports.getAllTasks = async (req, res) => {
-    try {
-      const tasks = await Task.findAll();
-      res.status(200).json(tasks);
-    } catch (error) {
-      res.status(500).json({ error: 'Erro ao listar tarefas' });
+// POST - criar tarefa
+async function createTask(req, res) {
+  const { title, description } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const task = await Task.create({ title, description, userId });
+    res.status(201).json(task);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao criar tarefa' });
+  }
+}
+// PUT - atualizar tarefa do usuário
+async function updateTask(req, res) {
+  const { id } = req.params;
+  const { title, description, completed } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const task = await Task.findOne({ where: { id, userId } });
+    if (!task) {
+      return res.status(404).json({ error: 'Tarefa não encontrada ou acesso negado' });
     }
-  };
-  
-  // Função para atualizar uma tarefa
-  exports.updateTask = async (req, res) => {
-    const { id } = req.params;
-    const { title, description, completed } = req.body;
-  
-    try {
-      const task = await Task.findByPk(id);
-  
-      if (!task) {
-        return res.status(404).json({ error: 'Tarefa não encontrada' });
-      }
-  
-      task.title = title || task.title;
-      task.description = description || task.description;
-      task.completed = completed || task.completed;
-  
-      await task.save();
-      res.status(200).json(task);
-    } catch (error) {
-      res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+    await task.update({ title, description, completed });
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+  }
+}
+
+// DELETE - excluir tarefa do usuário
+async function deleteTask(req, res) {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const task = await Task.findOne({ where: { id, userId } });
+    if (!task) {
+      return res.status(404).json({ error: 'Tarefa não encontrada ou acesso negado' });
     }
-  };
-  
-  // Função para deletar uma tarefa
-  exports.deleteTask = async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const task = await Task.findByPk(id);
-  
-      if (!task) {
-        return res.status(404).json({ error: 'Tarefa não encontrada' });
-      }
-  
-      await task.destroy();
-      res.status(200).json({ message: `Tarefa ${id} deletada` });
-    } catch (error) {
-      res.status(500).json({ error: 'Erro ao deletar tarefa' });
-    }
-  };
+    await task.destroy();
+    res.json({ message: 'Tarefa excluída' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao excluir tarefa' });
+  }
+}
+
+// Exporte todas as funções
+module.exports = {
+  getAllTasks,
+  createTask,
+  updateTask,
+  deleteTask
+};
