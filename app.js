@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
+const path = require('path');
 const sequelize = require('./config/db');
 const tasksRouter = require('./routes/tasks');
 const authRoutes = require('./routes/auth');
@@ -11,6 +12,9 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
+// Servir arquivos estáticos do front-end (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, 'public', 'front-Task-List')));
+
 // Rota de status (teste rápido)
 app.get('/', (req, res) => {
   res.send('API de Tarefas: Funcionando!');
@@ -19,6 +23,11 @@ app.get('/', (req, res) => {
 // Rotas
 app.use('/tasks', tasksRouter);
 app.use('/', authRoutes);
+
+// Página principal (index.html)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 (async () => {
   try {
