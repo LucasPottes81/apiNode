@@ -46,7 +46,7 @@ Este projeto é um sistema completo de gerenciamento de tarefas com autenticaç�
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/LucasPottes81/apiNode.git
 cd nome-do-repositorio
 ```
 
@@ -158,5 +158,5 @@ Todos os testes de requisições foram feitos com a ferramenta **Postman**. A co
 
 ## 👨‍💻 Autor
 
-Desenvolvido por [Seu Nome].  
-Entre em contato: [seu-email@example.com]
+Desenvolvido por [Lucas Pottes].  
+Entre em contato: [2107003l@gmail.com]
