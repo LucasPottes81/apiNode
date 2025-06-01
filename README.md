@@ -130,8 +130,8 @@ Todos os testes de requisições foram feitos com a ferramenta **Postman**. A co
 │   ├── .env.example
 │   ├── app.js
 │   └── package.json
-├── frontend/
-│   └── public/
+├── public/
+│   └── frontend/
 ├── docker-compose.yml
 └── README.md
 ```
