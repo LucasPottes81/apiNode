@@ -1,0 +1,299 @@
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif  ;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.containerDashboard {
+  background: linear-gradient( 110deg, #b346d3 0%, #530084 100%);
+  padding:30px 220px 370px 40px;
+  height: 230px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 1100px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  margin-top: -80px;
+}
+
+#titulo-Dashboard {
+  color: white;
+  margin-top: 0;           
+  margin-bottom: 16px;    
+  text-align: left;        
+  text-shadow: #ccc;
+}
+
+form {
+  justify-content: flex-start;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+form input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  max-width: 350px; 
+  min-width: 0;
+  border: none;    
+  border-radius: 20px;
+}
+
+form button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #009929;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li span {
+  flex: 1;
+}
+
+li button {
+  margin-left: 5px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+li button.edit {
+  background-color: #007bff;
+}
+
+li button:hover {
+  opacity: 0.9;
+}
+
+#logoutBtn {
+  margin-top: 70px;
+  height: 40px;
+  width: 200px;         
+  max-width: 90%;       
+  background-color: white;
+  color: #530084;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: block;
+  margin-left: 50%;
+  transition: transform 0.2s;
+}
+
+#logoutBtn:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Estilo do Modal ===== */
+
+#editModal {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#editModal .modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+#editModal input[type="text"] {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#editModal .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#editModal button {
+  padding: 8px 15px;
+  margin-left: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#editModal #saveBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+#editModal #saveBtn:hover {
+  background-color: #0056b3;
+}
+
+#editModal #cancelBtn {
+  background-color: #6c757d;
+  color: white;
+}
+
+#editModal #cancelBtn:hover {
+  background-color: #5a6268;
+}
+
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #ccc;
+  padding: 32px;          
+  margin: 0;               
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-width: 220px;      
+  max-width: 280px;        
+  min-height: 140px;      
+  box-sizing: border-box;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.card button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card .edit-btn {
+  background: #9ce0db;
+  color: #222;
+}
+
+.card .delete-btn {
+  background: #e53935;
+  color: #fff;
+}
+
+ul#taskList {
+  display: flex;
+  flex-direction: row;      
+  gap: 10px;               
+  flex-wrap: wrap;          
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 932px) {
+  .containerDashboard {
+    padding: 40px 10px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 80vh;
+    box-sizing: border-box;
+  }
+
+  #titulo-Dashboard {
+    font-size: 1.5rem;
+  }
+
+  form input {
+    max-width: 100%;
+    font-size: 14px; /* menor no input também */
+  }
+
+  form button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  ul#taskList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Responsividade para os cards */
+  .card {
+    padding: 16px;
+    min-width: 180px;
+    max-width: 90%;
+    min-height: 100px;
+  }
+
+  /* Texto da tarefa (dentro do card) */
+  .card span {
+    font-size: 14px;
+  }
+
+  /* Botões menores */
+  .card .edit-btn,
+  .card .delete-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* Botão sair menor e centralizado */
+  #logoutBtn {
+    width: 160px;
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 932px) {
+  .containerDashboard {
+    padding: 40px 10px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 80vh;   
+    box-sizing: border-box;
+  }
+
+  #titulo-Dashboard {
+    font-size: 1.5rem;
+  }
+
+  form input {
+    max-width: 100%; 
+  }
+
+  ul#taskList {
+    flex-direction: column; 
+    align-items: center;    
+  }
+}
