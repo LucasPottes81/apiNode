@@ -1,5 +1,5 @@
 
-# 🗂️ Task Manager API & Front-End
+# 🗂️ Faz aí po!
 
 Este projeto é um sistema completo de gerenciamento de tarefas com autenticação de usuários, desenvolvido com Node.js no back-end, MySQL como banco de dados e um front-end básico em HTML/CSS/JavaScript. A aplicação permite que usuários autenticados criem, leiam, atualizem e excluam suas tarefas de forma segura, utilizando JWT para autenticação.
 
